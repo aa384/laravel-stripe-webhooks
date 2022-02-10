@@ -25,7 +25,7 @@ class ProcessStripeWebhookJob extends ProcessWebhookJob
             throw WebhookFailed::jobClassDoesNotExist($jobClass, $this->webhookCall);
         }
 
-        dispatch(new $jobClass($this->webhookCall));
+        dispatch(new $jobClass($this->webhookCall))->onConnection('sync');
     }
 
     protected function determineJobClass(string $eventType): string
